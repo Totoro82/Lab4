@@ -28,19 +28,19 @@ public class Utils {
   }
 
   private static Iterable<Integer> primesRec(int n, boolean[] arr, int i, int j, List<Integer> arrayPrimos) {
-    int valAux = i*j;
+    int multiploActual = i*j;
     if (n<=i) {
       return arrayPrimos; //caso base
     }
     if (arr[i]) { //if isPrimo ==>
-      if (valAux > n) { //if valueToBeChecked > existingValues ==>
+      if (multiploActual > n) { //if valueToBeChecked > existingValues ==>
         arrayPrimos.add(i);
         return primesRec(n, arr, ++i, 2, arrayPrimos); // ==> i++ and reset j
       }
-      arr[valAux] = false;
+      arr[multiploActual] = false;
       return primesRec(n, arr, i, ++j, arrayPrimos); // ==> make next i*j false
       }
-      return primesRec(n, arr, ++i, j, arrayPrimos); //if notPrimo ==> check sig num
+    return primesRec(n, arr, ++i, j, arrayPrimos); //if notPrimo ==> check sig num
   }
 
 
