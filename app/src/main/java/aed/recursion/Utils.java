@@ -4,6 +4,7 @@ package aed.recursion;
 import es.upm.aedlib.Pair;
 import es.upm.aedlib.Position;
 import es.upm.aedlib.positionlist.*;
+import java.util.*;
 
 
 
@@ -21,8 +22,27 @@ public class Utils {
   }
 
   public static Iterable<Integer> primes(int n) {
-    return null;
+    boolean[] arr = new boolean[n+1];
+    Arrays.fill(arr,true);
+    return primesRec(n, arr, 2, 2, new ArrayList<>());
   }
+
+  private static Iterable<Integer> primesRec(int n, boolean[] arr, int i, int j, List<Integer> arrayPrimos) {
+    int multiploActual = i*j;
+    if (n<=i) {
+      return arrayPrimos; //caso base
+    }
+    if (arr[i]) { //if isPrimo ==>
+      if (multiploActual > n) { //if valueToBeChecked > existingValues ==>
+        arrayPrimos.add(i);
+        return primesRec(n, arr, ++i, 2, arrayPrimos); // ==> i++ and reset j
+      }
+      arr[multiploActual] = false;
+      return primesRec(n, arr, i, ++j, arrayPrimos); // ==> make next i*j false
+      }
+    return primesRec(n, arr, ++i, j, arrayPrimos); //if notPrimo ==> check sig num
+  }
+
 
   public static <E> boolean equals(PositionList<Pair<E,Integer>> p1, PositionList<Pair<E,Integer>> p2) {
     return equalsRec(p1,p2,p1.first(),p2.first());
